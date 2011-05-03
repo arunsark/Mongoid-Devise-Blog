@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MongoidDeviseBlog</title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag 'rails', 'jquery.min'%>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+<p id="notice"><%= flash[:notice] %> </p>
+<%= yield %>
+
+</body>
+</html>
