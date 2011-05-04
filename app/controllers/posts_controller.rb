@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+
+  before_filter :authenticate_user!, :only=>[:new,:create,:destroy,:update]
   # GET /posts
   # GET /posts.xml
   def index
@@ -14,6 +16,7 @@ class PostsController < ApplicationController
   # GET /posts/1.xml
   def show
     @post = Post.find_by_slug(params[:id])
+    @comment = @post.comments.new
     logger.debug "No. of comments for post #{@post.title} is #{@post.comments.size}"
     respond_to do |format|
       format.html # show.html.erb
@@ -41,6 +44,7 @@ class PostsController < ApplicationController
   # POST /posts.xml
   def create
     @post = Post.new(params[:post])
+    @post.users << current_user
     logger.debug "Going to save #{Rails.logger.level} #{@post.title.inspect}"
     respond_to do |format|      
       begin

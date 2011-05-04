@@ -1,27 +1,19 @@
 
+<h2>  <%= @post.title %> </h2>
 <p>
-  <b>Title:</b>
-  <%= @post.title %>
-</p>
-
-<p>
-  <b>Published On:</b>
   <%= @post.published_on %>
 </p>
-
-
 <p>
-  <b>Content:</b>
   <%= @post.content %>
 </p>
-
+<p> Tags : <%= @post.get_tags || "None" %> </p>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', posts_path %>
 
 <% if @post.comments.size > 0 %>
 <h2> Comments </h2>
-<% render @post.comments %>
+<%= render @post.comments %>
 <% end %>
 
 <h2> New Comment </h2>

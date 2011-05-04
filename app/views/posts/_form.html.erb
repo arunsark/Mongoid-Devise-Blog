@@ -10,7 +10,9 @@
       </ul>
     </div>
   <% end %>
-   <p id="notice"><%= flash[:alert] %> </p>
+   <% if flash[:alert] %>
+     <p id="notice"><%= flash[:alert] %> </p>
+  <% end %>
   <div class="field">
     <%= f.label :title %><br />
     <%= f.text_field :title %>
@@ -18,8 +20,13 @@
   <div class="field">
     <%= f.label :content %><br />
     <%= f.text_area :content %>
+  </div>  
+  <div class="field">
+    <%= f.label :tags %><br />
+    <%= f.text_field :post_tags %>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
