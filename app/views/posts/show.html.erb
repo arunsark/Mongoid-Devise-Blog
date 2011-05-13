@@ -6,6 +6,7 @@
 <p>
   <%= @post.content %>
 </p>
+<p> Author(s) : <%= @post.authors %> </p>
 <p> Tags : <%= @post.get_tags || "None" %> </p>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |

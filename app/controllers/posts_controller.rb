@@ -44,9 +44,11 @@ class PostsController < ApplicationController
   # POST /posts.xml
   def create
     @post = Post.new(params[:post])
-    @post.users << current_user
-    logger.debug "Going to save #{Rails.logger.level} #{@post.title.inspect}"
-    respond_to do |format|      
+    unless params[:author].blank?
+      @post.users << User.find(params[:author])
+    end
+    logger.debug "Going to save #{Rails.logger.level} #{@post.title.inspect} #{params[:post]}"
+    respond_to do |format|
       begin
         @post.safely.save!
           logger.debug "Saved successfully #{@post.title.inspect}"

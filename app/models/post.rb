@@ -1,6 +1,7 @@
 class Post
   include Mongoid::Document
   include Mongoid::Slug
+  include Mongoid::MultiParameterAttributes
 
   attr_accessor :post_tags
   attr_accessible :title, :content, :post_tags
@@ -10,11 +11,11 @@ class Post
   field :published_on, :type => DateTime
   field :tags, :type => Array
   validates_presence_of :title, :content
-  embeds_many :comments
+  embeds_many :comments, :dependent => :destroy
   index :slug, unique:true
 
   validates_uniqueness_of :title, :case_sensitive => false
-  before_save :set_published_on, :generate_slug, :generate_tags  
+  before_save :set_published_on, :generate_slug, :generate_tags
   slug :slug
 
   has_and_belongs_to_many :users
@@ -26,6 +27,16 @@ class Post
       self.tags.inject{|tag_string,tag| tag_string + ", " + tag}
     end
   end
+
+  def authors
+    unless users.empty?
+      users.map{|user| user.nick_name}
+        .inject{|author_1,author_2| author_1 + ", " + author_2 }
+    else
+      "None"
+    end
+  end
+
   private
   def set_published_on
     self.published_on = DateTime.now
