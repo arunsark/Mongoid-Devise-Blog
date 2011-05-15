@@ -9,4 +9,6 @@ class User
   field :first_name
   field :last_name
   field :nick_name
+
+  validates_presence_of :first_name, :last_name, :nick_name
 end

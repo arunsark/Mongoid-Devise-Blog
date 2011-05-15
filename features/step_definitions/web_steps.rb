@@ -209,3 +209,8 @@ end
 Then /^show me the page$/ do
   save_and_open_page
 end
+
+Then /^I should see message "([^"]*)"$/ do |msg|
+  page.should have_content(msg)
+end
+

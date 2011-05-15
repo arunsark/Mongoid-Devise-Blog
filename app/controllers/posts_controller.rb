@@ -49,16 +49,15 @@ class PostsController < ApplicationController
     end
     logger.debug "Going to save #{Rails.logger.level} #{@post.title.inspect} #{params[:post]}"
     respond_to do |format|
-      begin
-        @post.safely.save!
-          logger.debug "Saved successfully #{@post.title.inspect}"
-          format.html { redirect_to(@post, :notice => 'Post was successfully created.') }
-          format.xml  { render :xml => @post, :status => :created, :location => @post }
-      rescue Exception => e
-          logger.debug "Could not save #{@post.title.inspect}"
-          flash[:alert] = "Slug cannot be created"
-          format.html { render 'new' }
-          format.xml  { render :xml => @post.errors, :status => :unprocessable_entity }
+      if @post.save_post?
+        logger.debug "Saved successfully #{@post.title.inspect}"
+        format.html { redirect_to(@post, :notice => 'Post was successfully created.') }
+        format.xml  { render :xml => @post, :status => :created, :location => @post }
+      else
+        logger.debug "Could not save #{@post.title.inspect}"
+        flash[:alert] = "Slug cannot be created"
+        format.html { render 'new' }
+        format.xml  { render :xml => @post.errors, :status => :unprocessable_entity }
       end
     end
   end

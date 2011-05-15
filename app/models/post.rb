@@ -37,13 +37,23 @@ class Post
     end
   end
 
+  def save_post?
+    begin
+      safely.save!
+      true
+    rescue Exception => e
+      false
+    end
+  end
+
   private
   def set_published_on
     self.published_on = DateTime.now
   end
 
   def generate_slug
-    self.slug = self.title.downcase.gsub(/[^[:alnum:]]/,'-').gsub(/-{2,}/,'-')
+    self.slug = PostsHelper.generate_slug(self.title)
+    #self.title.downcase.gsub(/[^[:alnum:]]/,'-').gsub(/-{2,}/,'-')
   end
 
   def generate_tags

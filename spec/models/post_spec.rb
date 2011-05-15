@@ -14,6 +14,9 @@ describe Post do
   describe "create post" do
     it "should create a post with title and content" do
       @post.should be_valid
+      lambda do
+        @post.safely.save
+      end.should change(Post, :count).by(1)
     end
 
     it "should not create a post without title" do
@@ -95,6 +98,21 @@ describe Post do
         @post.save!
         @post.tags.should == ["Ruby","Rails","Sinatra","Merb"]
       end
+
+      it "should be retreived as comma separated string" do
+        @post.post_tags = "Ruby,Rails,Sinatra,Merb"
+        @post.save!
+        post = Post.find_by_slug("foo-post")
+        post.tags.should == %w(Ruby Rails Sinatra Merb) #["Ruby","Rails","Sinatra","Merb"]
+        post.get_tags.should == "Ruby, Rails, Sinatra, Merb"
+      end
+
+      it "should be retrieved as nil if tags not present" do
+        @post.save!
+        post = Post.find_by_slug("foo-post")
+        post.tags.should be_nil
+        post.get_tags.should be_nil
+      end
     end
 
     describe "#title" do
@@ -109,7 +127,54 @@ describe Post do
       it "should be a valid date time" do
         @post.save!
         @post.published_on.should_not be_nil
+        @post.published_on.strftime('%Y%m%d').should == Date.today.strftime('%Y%m%d')
       end
     end
+
+    describe "#authors" do
+      before(:each) do
+        @arun = Factory(:user1)
+        @suresh = Factory(:user2)
+      end
+
+      it "should be able to assoicate one author to a post" do
+        @post.users << @arun
+        @post.should be_valid
+        @post.users = [@arun]
+        @post.safely.save
+        #not sure if factory girls works so well with mongoid
+        #so query back and check the authors
+        post = Post.find_by_slug("foo-post")
+        post.users == [@arun]
+      end
+
+      it "should be able to assoicate more than author to a post" do
+        @post.users << @arun
+        @post.users << @suresh
+        @post.should be_valid
+        @post.users = [@arun,@suresh]
+        @post.safely.save
+
+        post = Post.find_by_slug("foo-post")
+        post.users == [@arun,@suresh]
+      end
+
+      it "should be able to retrieve authors as comma separated string" do
+        @post.users << @arun
+        @post.users << @suresh
+        @post.safely.save
+
+        post = Post.find_by_slug("foo-post")
+        post.authors.should == @arun.nick_name + ", " + @suresh.nick_name
+      end
+
+      it "should be None if no authors are present" do
+        @post.safely.save
+        post = Post.find_by_slug("foo-post")
+        post.authors.should == "None"
+      end
+
+    end
   end
+
 end
