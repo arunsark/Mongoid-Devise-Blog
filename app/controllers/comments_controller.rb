@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-
+  load_and_authorize_resource :only=>[:destroy,:update]
   def create
     begin
       @post = Post.find_by_slug(params[:post_id])
@@ -20,4 +20,9 @@ class CommentsController < ApplicationController
   def new
   end
 
+  def destroy
+  end
+
+  def update
+  end
 end

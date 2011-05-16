@@ -13,7 +13,7 @@ describe PostsController do
       response.should redirect_to(new_user_session_path)
     end
     it "should deny access to 'delete'" do
-      post :destroy, :id => "foo-post"
+      delete :destroy, :id => "foo-post"
       response.should redirect_to(new_user_session_path)
     end
   end
@@ -59,6 +59,45 @@ describe PostsController do
         post :create, :post => @attr
         flash[:alert].should =~ /slug cannot be created/i
         response.should render_template('new')
+      end
+    end
+  end
+
+  describe "PUT destroy" do
+    before(:each) do
+      @post_by_ananth = Factory(:post_with_author)
+    end
+
+    context "Admin" do
+      before(:each) do
+        @admin = sign_in(Factory(:user1))
+      end
+      it "should destroy any post" do
+        lambda do
+          delete :destroy, :id => @post_by_ananth.slug
+        end.should change(Post,:count)
+      end
+    end
+
+    context "Owner of post" do
+      before(:each) do
+        @ananth = sign_in(User.find(@post_by_ananth.user_ids[0]))
+      end
+      it "can destroy Post written by him" do
+        lambda do
+          delete :destroy, :id => @post_by_ananth.slug
+        end.should change(Post,:count)
+      end
+    end
+
+    context "Author" do
+      before(:each) do
+        @suresh = sign_in(Factory(:user2))
+      end
+      it "cannot destroy Posts written by some other Author" do
+        lambda do
+          delete :destroy, :id => @post_by_ananth.slug
+        end.should_not change(Post,:count)
       end
     end
   end

@@ -1,10 +1,11 @@
-Given /^I am a registered User with name "([^"]*)", email "([^"]*)" and password "([^"]*)"$/ do |name, email, password|
+Given /^I am an "([^""]*)" with name "([^"]*)", email "([^"]*)" and password "([^"]*)"$/ do |role, name, email, password|
   @user = User.create!(:email => email,
                :password => password,
                :password_confirmation => password,
                :first_name => name,
                :last_name => name,
-               :nick_name => name)
+               :nick_name => name,
+               :role => role)
 end
 
 Given /^I sign in as "(.*)\/(.*)"$/ do |email, password|  
@@ -38,11 +39,59 @@ Then /^I should see post in the index page$/ do
   page.should have_content("Comment")
 end
 
-
-Given /^I have not signed into the system$/ do
-  
+Given /^I have post "([^"]*)" authored by me$/ do |title|
+  @title = title
+  @post = Post.new(:title => title, :content => "Something goes here")
+  @post.users << @user
+  @post.save!
 end
 
-Then /^I should be taken to the sign in page$/ do
-  page.should have_content("Sign in") 
+When /^I visit Update Post Page$/ do
+  visit edit_post_path(@post)# express the regexp above with the code you wish you had
 end
+
+When /^I fill up the Title as "([^"]*)"$/ do |title|
+  @title = title
+  fill_in "Title", :with => title
+end
+
+When /^I update the Post$/ do
+  click_button "Update Post"
+end
+
+When /^I delete the post$/ do
+  visit posts_path
+  click_link "Destroy"
+end
+
+Then /^I should not see the post in the index page$/ do
+  visit posts_path
+  page.should_not have_content(@title)
+end
+
+Given /^I have post "([^"]*)" authored by "([^"]*)"$/ do |title, author|
+  @user = Factory(:user2)
+  @title = title
+  @post = Post.new(:title => title, :content => "Something goes here")
+  @post.users << @user
+  @post.save!
+end
+
+When /^I visit Posts Page$/ do
+  visit posts_path
+end
+
+Then /^I should see the post$/ do
+  page.should have_content(@title)
+end
+
+Then /^I should not have the link to "([^"]*)" or "([^"]*)"$/ do |link1, link2|
+  page.should_not have_link(link1)
+  page.should_not have_link(link2)
+end
+
+Then /^I should have the link to "([^"]*)" or "([^"]*)"$/ do |link1, link2|
+  page.should have_link(link1)
+  page.should have_link(link2)
+end
+

@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
 
   before_filter :authenticate_user!, :only=>[:new,:create,:destroy,:update]
+  
+  # load_and_authorize_resource :only=>[:new,:create,:destroy,:update]
   # GET /posts
   # GET /posts.xml
   def index
@@ -38,12 +40,14 @@ class PostsController < ApplicationController
   # GET /posts/1/edit
   def edit
     @post = Post.find_by_slug(params[:id])
+    authorize! :edit, @post
   end
 
   # POST /posts
   # POST /posts.xml
   def create
     @post = Post.new(params[:post])
+    authorize! :create, @post
     unless params[:author].blank?
       @post.users << User.find(params[:author])
     end
@@ -67,7 +71,7 @@ class PostsController < ApplicationController
   def update
     logger.debug "Going to update post #{params[:id]}"
     @post = Post.find_by_slug(params[:id])
-
+    authorize! :update, @post
     respond_to do |format|
       begin
         @post.update_attributes!(params[:post])
@@ -87,11 +91,13 @@ class PostsController < ApplicationController
   # DELETE /posts/1.xml
   def destroy
     @post = Post.find_by_slug(params[:id])
+    authorize! :destroy, @post
     @post.destroy
-
+   
     respond_to do |format|
       format.html { redirect_to(posts_url) }
       format.xml  { head :ok }
     end
   end
 end
+ 

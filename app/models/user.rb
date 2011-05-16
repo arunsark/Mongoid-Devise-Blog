@@ -9,6 +9,13 @@ class User
   field :first_name
   field :last_name
   field :nick_name
+  field :role, :default => "reader"
 
-  validates_presence_of :first_name, :last_name, :nick_name
+  ROLES = %w[reader author admin]
+
+  validates_presence_of :first_name, :last_name, :nick_name, :role
+
+  def role?(base_role)
+    ROLES.index(base_role.to_s) <= ROLES.index(role)
+  end
 end

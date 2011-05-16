@@ -7,6 +7,7 @@ gem 'mongoid_slug', :require => 'mongoid/slug'
 gem 'formtastic'
 gem 'jquery-rails'
 gem 'devise'
+gem 'cancan'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
