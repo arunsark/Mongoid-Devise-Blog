@@ -14,5 +14,5 @@ Feature: Create comment
     And I fill up the Content as "Excellent Post"
     And I submit the Comment
     Then I should see message "Thanks for the comment"
-    And I should see my Comment appearing in the Post
+    And I should see the Comment appearing in the Post
 

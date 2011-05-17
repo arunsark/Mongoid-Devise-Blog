@@ -1,7 +1,8 @@
 class CommentsController < ApplicationController
-  load_and_authorize_resource :only=>[:destroy,:update]
+  authorize_resource :only=>[:destroy,:update]
   def create
     begin
+      puts params[:post_id]
       @post = Post.find_by_slug(params[:post_id])
       @comment = @post.comments.new(params[:comment])
 
@@ -21,6 +22,12 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    @post = Post.find_by_slug(params[:post_id])
+    @comment = @post.comments.find(params[:id])
+    @comment.destroy
+    logger.debug "Comment to be deleted is #{@comment._id}"
+    flash[:notice] = "Comment deleted."
+    redirect_to post_path(@post)
   end
 
   def update

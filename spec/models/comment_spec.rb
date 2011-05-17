@@ -42,6 +42,15 @@ describe Comment do
       @comment.save!
       @comment.published_on.strftime('%Y%m%d').should == Date.today.strftime('%Y%m%d')
     end
-    
   end
+
+  describe "Comment Deletion" do
+    it "should destroy the comment" do
+      @post.comments.size.should == 1
+      lambda do
+        @comment.destroy
+      end.should change(@post.comments,:size)
+    end
+  end
+  
 end

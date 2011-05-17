@@ -1,19 +1,3 @@
-Given /^I am an "([^""]*)" with name "([^"]*)", email "([^"]*)" and password "([^"]*)"$/ do |role, name, email, password|
-  @user = User.create!(:email => email,
-               :password => password,
-               :password_confirmation => password,
-               :first_name => name,
-               :last_name => name,
-               :nick_name => name,
-               :role => role)
-end
-
-Given /^I sign in as "(.*)\/(.*)"$/ do |email, password|  
-  Given %{I go to the sign in page}
-  And %{I fill in "user_email" with "#{email}"}
-  And %{I fill in "user_password" with "#{password}"}
-  And %{I press "Sign in"}
-end
 
 When /^I visit Create Post Page$/ do
   visit posts_path
@@ -33,21 +17,21 @@ When /^I publish the Post$/ do
   click_button "Create Post"
 end
 
-Then /^I should see post in the index page$/ do
-  post = Post.find_by_slug(PostsHelper.generate_slug(@title))  
+Then /^I should see the updated title in the page$/ do
   page.should have_content(@title)
-  page.should have_content("Comment")
 end
 
-Given /^I have post "([^"]*)" authored by me$/ do |title|
+
+Given /^I have post "([^"]*)" authored by "([^"]*)"$/ do |title,author_name|
   @title = title
   @post = Post.new(:title => title, :content => "Something goes here")
+  @user = find_user_by_name(author_name)
   @post.users << @user
   @post.save!
 end
 
-When /^I visit Update Post Page$/ do
-  visit edit_post_path(@post)# express the regexp above with the code you wish you had
+When /^I visit Update Post Page$/ do  
+  visit edit_post_url(@post)# express the regexp above with the code you wish you had
 end
 
 When /^I fill up the Title as "([^"]*)"$/ do |title|
@@ -69,13 +53,12 @@ Then /^I should not see the post in the index page$/ do
   page.should_not have_content(@title)
 end
 
-Given /^I have post "([^"]*)" authored by "([^"]*)"$/ do |title, author|
-  @user = Factory(:user2)
-  @title = title
-  @post = Post.new(:title => title, :content => "Something goes here")
-  @post.users << @user
-  @post.save!
+Then /^I should see post in the index page$/ do
+  visit posts_path
+  page.should have_content(@title)
 end
+
+
 
 When /^I visit Posts Page$/ do
   visit posts_path
@@ -95,3 +78,13 @@ Then /^I should have the link to "([^"]*)" or "([^"]*)"$/ do |link1, link2|
   page.should have_link(link2)
 end
 
+def find_user_by_name(name)
+  user = User.where(nick_name:"#{name}").first
+  unless user
+    puts "create suresh"
+    role = "author"
+    Given %{I am a user with role "#{role}" and name "#{name}"}
+    user = User.where(nick_name:"#{name}").first
+  end
+  user
+end

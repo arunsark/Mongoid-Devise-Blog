@@ -43,9 +43,12 @@ Factory.define :post_with_author, :parent => :post1 do |post|
   post.after_create { |p| Factory(:user3, :posts => [p]) }
 end
 
+
 #Factory.define :author_with_posts, :parent => :user3 do |user|
 #  user.after_create { |u| Factory(:post1, :users => [u]) }
 #end
 
 
-
+Factory.sequence :email do |n|
+  "person-#{n}@example.com"
+end

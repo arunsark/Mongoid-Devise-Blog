@@ -1,4 +1,7 @@
 <h3> <%= comment.author %> </h3>
 <p> <%= comment.published_on %> </p>
 <p> <%= comment.content %> </p>
+<% if comment.author && can?(:destroy,comment)  %>
+    <p><%= link_to "Delete Comment", [@post,comment],:confirm => "Are you sure?" , :method => :delete %></p>
+<% end %>
 
