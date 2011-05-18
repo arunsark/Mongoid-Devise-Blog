@@ -52,5 +52,12 @@ describe Comment do
       end.should change(@post.comments,:size)
     end
   end
+
+  describe "Comment Edit" do
+    it "should update the comment" do
+      @comment.update_attributes(:content => "Edited updated and modified content", :author=>"Harish").should be_true
+      @post.comments[0].content.should == "Edited updated and modified content"
+    end
+  end
   
 end

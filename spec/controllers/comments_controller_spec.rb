@@ -40,38 +40,72 @@ describe CommentsController do
     end
   end
 
-  describe "PUT destroy" do
-
+  context "Update/Destroy" do
     before(:each) do
       @post = Factory(:post)
       @attr = { :author => "Arun", :email => "arun@gmail.com", :content => "Excellent Post!"}
       @comment = @post.comments.new(@attr)
-      @comment.save!
-      puts "enter before each"
+      @comment.save!     
     end
-    context "Admin" do
-      before(:each) do
-        @admin = sign_in(Factory(:user1))
-      end
 
-      it "should destroy any comment" do
-        @post.comments.size.should == 1
-        delete :destroy, :post_id => @post.slug, :id => @comment._id
-        @comment = @post.comments.find(@comment._id)
-        puts @comment._id
-        response.should redirect_to(post_path(@post))
+
+    describe "PUT destroy" do
+
+      context "Admin" do
+        before(:each) do
+          @admin = sign_in(Factory(:user1))
+        end
+
+        it "should destroy any comment" do
+          @post.comments.size.should == 1
+          delete :destroy, :post_id => @post.slug, :id => @comment._id
+          @comment = @post.comments.find(@comment._id)
+          response.should redirect_to(post_path(@post))
+          flash[:notice].should == "Comment deleted."
+        end
+      end
+      context "Author" do
+        before(:each) do
+          @author = sign_in(Factory(:user2))
+        end
+        it "should not destroy any comment" do
+          lambda do
+            delete :destroy, :post_id => "foo-post", :id => @comment._id
+          end.should_not change(@post.comments,:size)
+          flash[:notice].should be_nil
+          response.should redirect_to(root_url)
+          flash[:error].should_not be_nil
+        end
       end
     end
-    context "Author" do
+
+    describe "PUT update" do
+
       before(:each) do
-        @author = sign_in(Factory(:user2))
+        @attr_edited = { :author => "Suresh", :email => "suresh@gmail.com", :content => "Crappy Excellent Post!"}
       end
-      it "should not destroy any comment" do
-        lambda do
-          delete :destroy, :post_id => "foo-post", :id => @comment._id
-        end.should_not change(@post.comments,:size)
+      context "Admin" do
+        before(:each) do
+          @admin = sign_in(Factory(:user1))
+        end
+
+        it "should update any comment" do
+          put :update, :post_id => @post.slug, :id => @comment._id, :comment => @attr_edited
+          flash[:notice].should == "Comment updated."
+          response.should redirect_to(post_path(@post))
+        end
+      end
+      context "Author" do
+        before(:each) do
+          @author = sign_in(Factory(:user2))
+        end
+        it "should not update any comment" do
+          put :update, :post_id => @post.slug, :id => @comment._id, :comment => @attr_edited
+          flash[:notice].should be_nil
+          flash[:error].should_not be_nil
+          response.should redirect_to(root_url)
+        end
       end
     end
   end
-
 end

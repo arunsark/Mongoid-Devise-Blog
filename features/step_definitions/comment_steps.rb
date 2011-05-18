@@ -41,8 +41,8 @@ When /^I visit the Show Post Page$/ do
   visit post_path(@post)
 end
 
-Then /^I should see a Delete link for the comment$/ do
-  page.should have_link("Delete Comment")
+Then /^I should see a "([^"]*)" for the comment$/ do |link_text|
+  page.should have_link(link_text)
 end
 
 When /^I click the "([^"]*)" Link$/ do |link|
@@ -55,4 +55,12 @@ end
 
 Then /^I should not see the Comment appearing in the Post$/ do
   page.should_not have_content(@content)
+end
+
+When /^I click the "([^"]*)" Button$/ do |button_name|
+  click_button button_name
+end
+
+Then /^I should see the updated Comment appearing in the Post$/ do
+  Then %{I should see the Comment appearing in the Post}
 end
