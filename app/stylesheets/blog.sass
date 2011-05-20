@@ -1,0 +1,31 @@
+@import "partials/_base"
+
+=content_box($width, $last:false)
+  +column($width,$last)
+  @include background(image-url('middle_bknd.png'))
+  +border-radius(25px)  
+  padding: 1em 1em 1em 2em  
+
+.blog
+  +container
+  background-color: #8AC5E9
+  font-family: 'Helvetica Neue','Trebuchet MS', Trebuchet, 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+  a
+    text-decoration: none
+  #header, #footer
+    +column(24,true)
+    h3    
+      font-family: 'Syncopate'
+      font-size: 2em
+      color: D4061E      
+  #content
+    color: #F5F5F0        
+    a
+      +link-colors(#9FCCF0,#C74451,#C74451,#9FFCF0,#C74451)
+      +hover-link      
+    #left
+      +content_box(12)
+    #right
+      +content_box(4)
+  
+        

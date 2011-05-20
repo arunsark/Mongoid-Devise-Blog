@@ -1,0 +1,35 @@
+= form_for(@post) do |f|
+  - if @post.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@post.errors.count, "error")
+        prohibited this post from being saved:
+      %ul
+        - @post.errors.full_messages.each do |msg|
+          %li= msg
+  - if flash[:alert]
+    %p#notice
+      = flash[:alert]
+  .field
+    = f.label :title
+    %br/
+    = f.text_field :title
+  .field
+    = f.label :content
+    %br/
+    = f.text_area :content
+  .field
+    = f.label :tags
+    %br/
+    = f.text_field :post_tags
+  .field
+    = f.label :published_on
+    %br/
+    = f.datetime_select :published_on
+  .field
+    = f.label :author
+    %br/
+    = select_tag(:author,options_from_collection_for_select(User.all,:_id,:nick_name),:multiple=>true,:size=>3)
+    = options_from_collection_for_select(User.all,:_id,:nick_name)
+  .actions
+    = f.submit

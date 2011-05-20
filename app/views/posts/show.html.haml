@@ -1,0 +1,18 @@
+%h2
+  = @post.title
+%p
+  = @post.published_on
+%p
+  = @post.content
+%p
+  Author(s) : #{@post.authors}
+%p
+  Tags : #{@post.get_tags || "None"}
+= link_to 'Edit', edit_post_path(@post)
+|
+\#{link_to 'Back', posts_path}
+- if @post.comments.size > 0
+  %h2 Comments
+  = render @post.comments
+%h2 New Comment
+= render 'comments/new'

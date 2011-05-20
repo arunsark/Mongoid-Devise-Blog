@@ -15,7 +15,7 @@ describe Post do
     it "should create a post with title and content" do
       @post.should be_valid
       lambda do
-        @post.safely.save
+        @post.save_post?
       end.should change(Post, :count).by(1)
     end
 
@@ -47,36 +47,36 @@ describe Post do
 
     describe "#slug" do
       it "should be generated while saving" do
-        @post.save!
+        @post.save_post?
         @post.slug.should_not be_nil
         @post.slug.should == "foo-post"
       end
 
       it "should truncate unwanted spaces and put - in slug" do
         @post.title = "Foo    Post"
-        @post.save!
+        @post.save_post?
         @post.slug.should == "foo-post"
         @post.title.should == "Foo    Post"
       end
 
       it "should replace all special characters with -" do
         @post.title = "Foo+Post#Test"
-        @post.save!
+        @post.save_post?
         @post.slug.should == "foo-post-test"
         @post.title.should == "Foo+Post#Test"
       end
 
       it "should replace all consecutive occurences of -'s to a single -" do
         @post.title = "Foo+-Post*#Test"
-        @post.save!
+        @post.save_post?
         @post.slug.should == "foo-post-test"
         @post.title.should == "Foo+-Post*#Test"
       end
 
       it "should not accept duplicates while saving" do
-        @post.save!
+        @post.save_post?
         post1 = Post.new(@attr.merge(:title=>"Foo+Post"))
-        post1.safely.save.should raise_error
+        post1.save_post?.should be_false
       end
     end
 
@@ -87,7 +87,7 @@ describe Post do
 
       it "should have one element if input has one tag" do
         @post.post_tags = "Ruby"
-        @post.save!
+        @post.save_post?
         @post.tags.should_not be_empty
         @post.tags.should include("Ruby")
         @post.tags.size.should == 1
@@ -95,20 +95,20 @@ describe Post do
 
       it "should have n elements if input has n tags" do
         @post.post_tags = "Ruby,Rails,Sinatra,Merb"
-        @post.save!
+        @post.save_post?
         @post.tags.should == ["Ruby","Rails","Sinatra","Merb"]
       end
 
       it "should be retreived as comma separated string" do
         @post.post_tags = "Ruby,Rails,Sinatra,Merb"
-        @post.save!
+        @post.save_post?
         post = Post.find_by_slug("foo-post")
         post.tags.should == %w(Ruby Rails Sinatra Merb) #["Ruby","Rails","Sinatra","Merb"]
         post.get_tags.should == "Ruby, Rails, Sinatra, Merb"
       end
 
       it "should be retrieved as nil if tags not present" do
-        @post.save!
+        @post.save_post?
         post = Post.find_by_slug("foo-post")
         post.tags.should be_nil
         post.get_tags.should be_nil
@@ -117,7 +117,7 @@ describe Post do
 
     describe "#title" do
       it "should not accept duplicates" do
-        @post.save!
+        @post.save_post?
         post1 = Post.new(@attr)
         post1.should_not be_valid
       end
@@ -125,7 +125,7 @@ describe Post do
 
     describe "#published_on" do
       it "should be a valid date time" do
-        @post.save!
+        @post.save_post?
         @post.published_on.should_not be_nil
         @post.published_on.strftime('%Y%m%d').should == Date.today.strftime('%Y%m%d')
       end
@@ -141,7 +141,7 @@ describe Post do
         @post.users << @arun
         @post.should be_valid
         @post.users = [@arun]
-        @post.safely.save
+        @post.save_post?
         #not sure if factory girls works so well with mongoid
         #so query back and check the authors
         post = Post.find_by_slug("foo-post")
@@ -153,7 +153,7 @@ describe Post do
         @post.users << @suresh
         @post.should be_valid
         @post.users = [@arun,@suresh]
-        @post.safely.save
+        @post.save_post?
 
         post = Post.find_by_slug("foo-post")
         post.users == [@arun,@suresh]
@@ -162,14 +162,14 @@ describe Post do
       it "should be able to retrieve authors as comma separated string" do
         @post.users << @arun
         @post.users << @suresh
-        @post.safely.save
+        @post.save_post?
 
         post = Post.find_by_slug("foo-post")
         post.authors.should == @arun.nick_name + ", " + @suresh.nick_name
       end
 
       it "should be None if no authors are present" do
-        @post.safely.save
+        @post.save_post?
         post = Post.find_by_slug("foo-post")
         post.authors.should == "None"
       end

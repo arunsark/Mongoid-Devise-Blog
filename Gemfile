@@ -8,6 +8,9 @@ gem 'formtastic'
 gem 'jquery-rails'
 gem 'devise'
 gem 'cancan'
+gem 'compass', '0.11.1'
+gem 'haml'
+gem 'sass'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
