@@ -20,6 +20,9 @@ class Post
 
   has_and_belongs_to_many :users
 
+  cattr_reader :per_page
+  @@per_page = 1
+
   #accepts_nested_attributes_for :comment
 
   def get_tags

@@ -4,8 +4,5 @@
   = comment.published_on
 %p
   = comment.content
-- if comment.author && can?(:update,comment)
-  %p
-    = link_to "Edit Comment", edit_post_comment_path(@post,comment)
-- if comment.author && can?(:destroy,comment)
-  = link_to "Delete Comment", [@post,comment],:confirm => "Are you sure?" , :method => :delete
+%p
+  = comment_update_destroy_links comment

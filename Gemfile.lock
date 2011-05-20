@@ -189,3 +189,4 @@ DEPENDENCIES
   rails (= 3.0.7)
   rspec-rails
   sass
+  will_paginate

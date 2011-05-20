@@ -70,35 +70,60 @@ footer, header, hgroup, menu, nav, section {
   margin: 0 auto;
   overflow: hidden;
   *zoom: 1;
-  background-color: #8ac5e9;
-  font-family: "Helvetica Neue", "Trebuchet MS", Trebuchet, "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  background: #8ac5e9;
+  font-family: "Helvetica", "Trebuchet MS", Trebuchet, "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
 }
 /* line 13, ../../app/stylesheets/blog.sass */
 .blog a {
   text-decoration: none;
 }
 /* line 15, ../../app/stylesheets/blog.sass */
-.blog #header, .blog #footer {
+.blog #header {
   display: inline;
   float: left;
   margin-right: 0;
   width: 950px;
 }
 /* line 147, ../../../../../../../home/arun/.rvm/gems/ruby-1.9.2-p136@foo/gems/compass-0.11.1/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html .blog #header, * html .blog #footer {
+* html .blog #header {
   overflow-x: hidden;
 }
 /* line 17, ../../app/stylesheets/blog.sass */
-.blog #header h3, .blog #footer h3 {
+.blog #header h3 {
   font-family: "Syncopate";
-  font-size: 2em;
+  font-size: 3em;
   color: D4061E;
+  margin: 1em 0em 0em 0em;
 }
-/* line 21, ../../app/stylesheets/blog.sass */
+/* line 22, ../../app/stylesheets/blog.sass */
+.blog #footer {
+  display: inline;
+  float: left;
+  margin-right: 10px;
+  width: 790px;
+}
+/* line 147, ../../../../../../../home/arun/.rvm/gems/ruby-1.9.2-p136@foo/gems/compass-0.11.1/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html .blog #footer {
+  overflow-x: hidden;
+}
+/* line 24, ../../app/stylesheets/blog.sass */
+.blog #footer #footer_content {
+  display: inline;
+  float: left;
+  margin-right: 0;
+  width: 150px;
+  font-size: 0.6em;
+  float: right;
+}
+/* line 147, ../../../../../../../home/arun/.rvm/gems/ruby-1.9.2-p136@foo/gems/compass-0.11.1/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html .blog #footer #footer_content {
+  overflow-x: hidden;
+}
+/* line 28, ../../app/stylesheets/blog.sass */
 .blog #content {
   color: #f5f5f0;
 }
-/* line 23, ../../app/stylesheets/blog.sass */
+/* line 30, ../../app/stylesheets/blog.sass */
 .blog #content a {
   color: #9fccf0;
   text-decoration: none;
@@ -123,12 +148,12 @@ footer, header, hgroup, menu, nav, section {
 .blog #content a:hover {
   text-decoration: underline;
 }
-/* line 26, ../../app/stylesheets/blog.sass */
+/* line 33, ../../app/stylesheets/blog.sass */
 .blog #content #left {
   display: inline;
   float: left;
   margin-right: 10px;
-  width: 470px;
+  width: 710px;
   background: url('/images/middle_bknd.png?1305803682');
   -moz-border-radius: 25px;
   -webkit-border-radius: 25px;
@@ -142,12 +167,29 @@ footer, header, hgroup, menu, nav, section {
 * html .blog #content #left {
   overflow-x: hidden;
 }
-/* line 28, ../../app/stylesheets/blog.sass */
+/* line 36, ../../app/stylesheets/blog.sass */
+.blog #content #left section h2 {
+  font-size: 2em;
+  color: #e8b7bc;
+  border-bottom: 1px #aaaaaa solid;
+  margin: 0em 0em 0.2em 0em;
+}
+/* line 41, ../../app/stylesheets/blog.sass */
+.blog #content #left section #subHead {
+  font-size: 0.8em;
+  color: #aaaaaa;
+}
+/* line 44, ../../app/stylesheets/blog.sass */
+.blog #content #left section #post {
+  font-size: 1.2em;
+  margin: 1em 0em 1em 0em;
+}
+/* line 48, ../../app/stylesheets/blog.sass */
 .blog #content #right {
   display: inline;
   float: left;
-  margin-right: 10px;
-  width: 150px;
+  margin-right: 0;
+  width: 110px;
   background: url('/images/middle_bknd.png?1305803682');
   -moz-border-radius: 25px;
   -webkit-border-radius: 25px;

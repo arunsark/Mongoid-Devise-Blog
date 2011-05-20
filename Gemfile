@@ -11,7 +11,7 @@ gem 'cancan'
 gem 'compass', '0.11.1'
 gem 'haml'
 gem 'sass'
-
+gem 'will_paginate'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
