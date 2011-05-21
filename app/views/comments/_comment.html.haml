@@ -1,8 +1,6 @@
-%h3
-  = comment.author
-%p
-  = comment.published_on
-%p
-  = comment.content
-%p
-  = comment_update_destroy_links comment
+%article
+  %header
+    %h3= comment.author
+    %h4= comment.published_on
+  %section= comment.content
+  %footer= comment_update_destroy_links comment

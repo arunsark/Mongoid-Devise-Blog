@@ -1,3 +1,6 @@
-= link_to 'Edit', edit_post_path(post) ? options.include?(:update)
-\ "|" ? options.size > 1
-\ link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete ? options.include?(:delete)
+- if options.include?(:update)
+  = link_to 'Edit', edit_post_path(post)
+- if options.size > 1
+  |
+- if options.include?(:destroy)
+  = link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete

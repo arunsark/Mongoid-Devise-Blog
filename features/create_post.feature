@@ -6,7 +6,7 @@ Feature: Create a Post
   
   Background: 
     Given I am logged in as a "author" with name "Arun"
-
+  
   Scenario: Create a Post 
     Given I visit Create Post Page
     And I fill up Title as "Foo Post"

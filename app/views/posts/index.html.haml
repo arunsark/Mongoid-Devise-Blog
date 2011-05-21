@@ -1,7 +1,4 @@
-%section
-  - @posts.each do |post|
-    %h2= post.title
-    #subHead= "Author: #{post.authors} Published: #{post.published_on}"
-    #post= post.content
-
-  = will_paginate @posts
+- @posts.each do |post|
+  = render post
+= will_paginate @posts
+  

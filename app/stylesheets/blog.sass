@@ -6,8 +6,66 @@
   +border-radius(25px)  
   padding: 1em 1em 1em 2em  
 
+=post_headers($font_size)
+  h2
+    font-size: $font_size + em
+    color: #E8B7BC          
+    border-bottom: 1px #AAA solid
+    margin: 0.2em 0em 0.2em 0em          
+  
+=link_styles
+  +link-colors(#9FCCF0,#C74451,#C74451,#9FFCF0,#C74451)
+  +hover-link      
+  
+=post_styles
+  article
+    header
+      +post_headers(2)
+      h3
+        font-size: 0.8em
+        color: #AAA
+    section
+      font-size: 1.2em
+      margin: 1em 0em 1em 0em
+      p#tags
+        font-size: 0.9em
+        font-family: 'Trebuchet MS'
+        margin: 1em 0em 1em 0em
+        color: #AAA  
+    footer
+      font-size: 0.8em
+  section#comments
+    +post_headers(1.4)
+    article
+      background-color: #999
+      margin: 1em 0em 1em 0em
+      border-bottom: 3px solid #ddd
+      padding: 1em 0em 0em 1em      
+      header
+        h3
+          color: #0D0D0D
+          font-family: Helvetica          
+          font-weight: bold          
+          font-size: 1.1em
+        h4
+          font-size: 0.7em
+          color: #eee
+          line-height: 1.4em          
+      section
+        margin: 1em 0em 0.4em 0em
+        font-size: 0.9em
+        color: #000      
+      footer
+        font-size: 0.8em
+        margin: 0em 0em 1em 0em        
+        +link_styles
+  section#newcomment
+    +post_headers(1.4)
+        
+  
 .blog
   +container
+  overflow-y: auto  
   background: #8AC5E9    
   font-family: 'Helvetica','Trebuchet MS', Trebuchet, 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
   a
@@ -28,23 +86,10 @@
   #content
     color: #F5F5F0        
     a
-      +link-colors(#9FCCF0,#C74451,#C74451,#9FFCF0,#C74451)
-      +hover-link      
+      +link_styles
     #left
       +content_box(18)
-      section
-        h2
-          font-size: 2em
-          color: #E8B7BC          
-          border-bottom: 1px #AAA solid
-          margin: 0em 0em 0.2em 0em          
-        #subHead
-          font-size: 0.8em
-          color: #AAA
-        #post
-          font-size: 1.2em
-          margin: 1em 0em 1em 0em
-          
+      +post_styles  
     #right
       +content_box(3,true)
   

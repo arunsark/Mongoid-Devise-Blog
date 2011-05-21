@@ -64,20 +64,21 @@ footer, header, hgroup, menu, nav, section {
   display: block;
 }
 
-/* line 9, ../../app/stylesheets/blog.sass */
+/* line 66, ../../app/stylesheets/blog.sass */
 .blog {
   width: 950px;
   margin: 0 auto;
   overflow: hidden;
   *zoom: 1;
+  overflow-y: auto;
   background: #8ac5e9;
   font-family: "Helvetica", "Trebuchet MS", Trebuchet, "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
 }
-/* line 13, ../../app/stylesheets/blog.sass */
+/* line 71, ../../app/stylesheets/blog.sass */
 .blog a {
   text-decoration: none;
 }
-/* line 15, ../../app/stylesheets/blog.sass */
+/* line 73, ../../app/stylesheets/blog.sass */
 .blog #header {
   display: inline;
   float: left;
@@ -88,14 +89,14 @@ footer, header, hgroup, menu, nav, section {
 * html .blog #header {
   overflow-x: hidden;
 }
-/* line 17, ../../app/stylesheets/blog.sass */
+/* line 75, ../../app/stylesheets/blog.sass */
 .blog #header h3 {
   font-family: "Syncopate";
   font-size: 3em;
   color: D4061E;
   margin: 1em 0em 0em 0em;
 }
-/* line 22, ../../app/stylesheets/blog.sass */
+/* line 80, ../../app/stylesheets/blog.sass */
 .blog #footer {
   display: inline;
   float: left;
@@ -106,7 +107,7 @@ footer, header, hgroup, menu, nav, section {
 * html .blog #footer {
   overflow-x: hidden;
 }
-/* line 24, ../../app/stylesheets/blog.sass */
+/* line 82, ../../app/stylesheets/blog.sass */
 .blog #footer #footer_content {
   display: inline;
   float: left;
@@ -119,11 +120,11 @@ footer, header, hgroup, menu, nav, section {
 * html .blog #footer #footer_content {
   overflow-x: hidden;
 }
-/* line 28, ../../app/stylesheets/blog.sass */
+/* line 86, ../../app/stylesheets/blog.sass */
 .blog #content {
   color: #f5f5f0;
 }
-/* line 30, ../../app/stylesheets/blog.sass */
+/* line 88, ../../app/stylesheets/blog.sass */
 .blog #content a {
   color: #9fccf0;
   text-decoration: none;
@@ -148,7 +149,7 @@ footer, header, hgroup, menu, nav, section {
 .blog #content a:hover {
   text-decoration: underline;
 }
-/* line 33, ../../app/stylesheets/blog.sass */
+/* line 90, ../../app/stylesheets/blog.sass */
 .blog #content #left {
   display: inline;
   float: left;
@@ -167,24 +168,102 @@ footer, header, hgroup, menu, nav, section {
 * html .blog #content #left {
   overflow-x: hidden;
 }
-/* line 36, ../../app/stylesheets/blog.sass */
-.blog #content #left section h2 {
+/* line 10, ../../app/stylesheets/blog.sass */
+.blog #content #left article header h2 {
   font-size: 2em;
   color: #e8b7bc;
   border-bottom: 1px #aaaaaa solid;
-  margin: 0em 0em 0.2em 0em;
+  margin: 0.2em 0em 0.2em 0em;
 }
-/* line 41, ../../app/stylesheets/blog.sass */
-.blog #content #left section #subHead {
+/* line 24, ../../app/stylesheets/blog.sass */
+.blog #content #left article header h3 {
   font-size: 0.8em;
   color: #aaaaaa;
 }
-/* line 44, ../../app/stylesheets/blog.sass */
-.blog #content #left section #post {
+/* line 27, ../../app/stylesheets/blog.sass */
+.blog #content #left article section {
   font-size: 1.2em;
   margin: 1em 0em 1em 0em;
 }
-/* line 48, ../../app/stylesheets/blog.sass */
+/* line 30, ../../app/stylesheets/blog.sass */
+.blog #content #left article section p#tags {
+  font-size: 0.9em;
+  font-family: "Trebuchet MS";
+  margin: 1em 0em 1em 0em;
+  color: #aaaaaa;
+}
+/* line 35, ../../app/stylesheets/blog.sass */
+.blog #content #left article footer {
+  font-size: 0.8em;
+}
+/* line 10, ../../app/stylesheets/blog.sass */
+.blog #content #left section#comments h2 {
+  font-size: 1.4em;
+  color: #e8b7bc;
+  border-bottom: 1px #aaaaaa solid;
+  margin: 0.2em 0em 0.2em 0em;
+}
+/* line 39, ../../app/stylesheets/blog.sass */
+.blog #content #left section#comments article {
+  background-color: #999999;
+  margin: 1em 0em 1em 0em;
+  border-bottom: 3px solid #dddddd;
+  padding: 1em 0em 0em 1em;
+}
+/* line 45, ../../app/stylesheets/blog.sass */
+.blog #content #left section#comments article header h3 {
+  color: #0d0d0d;
+  font-family: Helvetica;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+/* line 50, ../../app/stylesheets/blog.sass */
+.blog #content #left section#comments article header h4 {
+  font-size: 0.7em;
+  color: #eeeeee;
+  line-height: 1.4em;
+}
+/* line 54, ../../app/stylesheets/blog.sass */
+.blog #content #left section#comments article section {
+  margin: 1em 0em 0.4em 0em;
+  font-size: 0.9em;
+  color: black;
+}
+/* line 58, ../../app/stylesheets/blog.sass */
+.blog #content #left section#comments article footer {
+  font-size: 0.8em;
+  margin: 0em 0em 1em 0em;
+  color: #9fccf0;
+  text-decoration: none;
+}
+/* line 18, ../../../../../../../home/arun/.rvm/gems/ruby-1.9.2-p136@foo/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+.blog #content #left section#comments article footer:visited {
+  color: #9ffcf0;
+}
+/* line 21, ../../../../../../../home/arun/.rvm/gems/ruby-1.9.2-p136@foo/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+.blog #content #left section#comments article footer:focus {
+  color: #c74451;
+}
+/* line 24, ../../../../../../../home/arun/.rvm/gems/ruby-1.9.2-p136@foo/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+.blog #content #left section#comments article footer:hover {
+  color: #c74451;
+}
+/* line 27, ../../../../../../../home/arun/.rvm/gems/ruby-1.9.2-p136@foo/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+.blog #content #left section#comments article footer:active {
+  color: #c74451;
+}
+/* line 4, ../../../../../../../home/arun/.rvm/gems/ruby-1.9.2-p136@foo/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_hover-link.scss */
+.blog #content #left section#comments article footer:hover {
+  text-decoration: underline;
+}
+/* line 10, ../../app/stylesheets/blog.sass */
+.blog #content #left section#newcomment h2 {
+  font-size: 1.4em;
+  color: #e8b7bc;
+  border-bottom: 1px #aaaaaa solid;
+  margin: 0.2em 0em 0.2em 0em;
+}
+/* line 93, ../../app/stylesheets/blog.sass */
 .blog #content #right {
   display: inline;
   float: left;

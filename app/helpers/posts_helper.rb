@@ -15,4 +15,8 @@ module PostsHelper
     render :partial => "posts/update_destroy" , :locals => {:options => options, :post => post}
   end
 
+  def comments_link(post)
+    link_to(pluralize(post.comments.size,"Comment"), post_path(post))    
+  end
 end
+

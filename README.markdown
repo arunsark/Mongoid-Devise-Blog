@@ -1,13 +1,11 @@
-== Mongoid Devise Blog
+# Blog powered by Mongo DB and secured with Devise
 
-This is simple Blog application. This blog features
-     Rail3
-     MongoDB Backend interfaced through Mongoid
-     Devise Authentication
-     RSpec Tests
-     Cucumber Acceptance Test
-     Cass & Haml (To be Done)
-Two issues
-In show.html.erb when I render comments it showing one more than the comments.size
-comments_controller_spec when I delete in spec comments size not changing
-but in controller comment size is decreasing
+**This is simple Blog application. This blog features**
+* Rails 3
+* MongoDB Backend interfaced through Mongoid
+* Devise Authentication
+* RSpec Tests
+* Cucumber Acceptance Test
+* Sass/Haml & Compass
+
+http://github.com - automatic!

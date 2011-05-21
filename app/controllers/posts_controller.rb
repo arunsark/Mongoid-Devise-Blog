@@ -19,7 +19,7 @@ class PostsController < ApplicationController
   # GET /posts/1.xml
   def show
     @post = Post.find_by_slug(params[:id])
-    @comment = @post.comments.new
+    @comment = Comment.new
     logger.debug "No. of comments for post #{@post.title} is #{@post.comments.size}"
     respond_to do |format|
       format.html # show.html.erb
