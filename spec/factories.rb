@@ -52,3 +52,12 @@ end
 Factory.sequence :email do |n|
   "person-#{n}@example.com"
 end
+
+Factory.sequence :post_title do |n|
+  "Foo Bar #{n}"
+end
+
+Factory.sequence :post_content do |n|
+  "Lorem Ipsum #{n}"
+end
+

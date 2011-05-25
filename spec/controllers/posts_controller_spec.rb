@@ -1,8 +1,7 @@
 
 require 'spec_helper'
-
 describe PostsController do
-  #render_views
+  render_views
   describe "access controls" do
     it "should deny access to 'create'" do
       post :create
@@ -99,6 +98,31 @@ describe PostsController do
           delete :destroy, :id => @post_by_ananth.slug
         end.should_not change(Post,:count)
       end
+    end
+  end
+
+  describe "index" do
+    before(:each) do
+      year = 2011
+      month = 4
+      day = 30
+      30.times do
+        generate_post_from_factory(year,month,day)
+        day -= 1
+      end
+      day = 31
+      month = 3
+      31.times do
+        generate_post_from_factory(year,month,day)
+        day -= 1
+      end
+    end
+
+    it "should display Archives" do
+      visit posts_path
+      page.should have_content("Archives")
+      page.should have_content("Apr 2011(30)")
+      page.should have_content("Mar 2011(31)")
     end
   end
 end

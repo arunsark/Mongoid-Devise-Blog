@@ -100,5 +100,14 @@ class PostsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def find
+    @posts = Post.where({:month=>params[:month],:year=>params[:year]})
+    puts @posts.size
+    respond_to do |format|
+      format.html {}
+      format.js { render :layout => false }
+    end
+  end
 end
  

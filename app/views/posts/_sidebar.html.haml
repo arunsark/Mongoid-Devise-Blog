@@ -1,0 +1,12 @@
+.sidebar
+  - if archives.size > 0
+    %p Archives
+    %ul#archivetree.filetree
+      - archives.each do |archive|
+        - nodeid = archive[:month] + archive[:year].to_s
+        %li{:id =>nodeid}
+          %span.month= link_to archive[:label], { :controller => 'posts', :action => 'find', :month => archive[:month], :year => archive[:year] } , :remote => true
+
+
+          
+

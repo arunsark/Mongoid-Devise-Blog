@@ -43,4 +43,11 @@ group :development, :test do
     gem 'database_cleaner'
     gem 'mongoid-rspec'
     gem 'factory_girl_rails'
+    gem 'guard-rspec'
+    gem 'guard-spork'
+    gem 'guard-cucumber'
+    gem 'guard-livereload'
+    gem 'rb-inotify'
+    gem 'libnotify'    
+    gem 'spork','0.9.0.rc5'
 end

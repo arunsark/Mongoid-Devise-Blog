@@ -4,12 +4,14 @@ class Post
   include Mongoid::MultiParameterAttributes
 
   attr_accessor :post_tags
-  attr_accessible :title, :content, :post_tags
+  attr_accessible :title, :content, :post_tags, :published_on
   field :title
   field :content
   field :slug
   field :published_on, :type => DateTime
   field :tags, :type => Array
+  field :month
+  field :year, :type => Integer
   validates_presence_of :title, :content
   embeds_many :comments, :dependent => :destroy
   index :slug, unique:true
@@ -49,9 +51,17 @@ class Post
     end
   end
 
+  def self.count_and_agg_by_month
+    Post.collection.group(:key=>['month','year'],:initial=>{:count=>0},
+                          :reduce=>"function(doc,aggregator){aggregator.count++}")
+  end
+
+
   private
   def set_published_on
-    self.published_on = DateTime.now
+    self.published_on = DateTime.now unless self.published_on
+    self.month = self.published_on.strftime('%b')
+    self.year = self.published_on.year()
   end
 
   def generate_slug

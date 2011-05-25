@@ -1,9 +1,10 @@
 MongoidDeviseBlog::Application.routes.draw do
-  devise_for :users
-
+  devise_for :user
+  match 'posts/find/:month/:year' => 'posts#find'
   resources :posts do
     resources :comments
   end
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

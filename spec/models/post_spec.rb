@@ -1,6 +1,6 @@
 
 require 'spec_helper'
-
+require 'factories'
 describe Post do
 
   before(:each) do
@@ -131,6 +131,16 @@ describe Post do
       end
     end
 
+    describe "#month and #year" do
+      it "should have a valid month and year" do
+        @post.save_post?
+        @post.month.should_not be_nil
+        @post.year.should_not be_nil
+        @post.month.should == @post.published_on.strftime('%b')
+        @post.year.should == @post.published_on.year()
+      end
+    end
+
     describe "#authors" do
       before(:each) do
         @arun = Factory(:user1)
@@ -176,5 +186,36 @@ describe Post do
 
     end
   end
+
+  describe "group by aggregation" do
+    before(:each) do
+      year = 2011
+      month = 4
+      day = 30
+      30.times do
+        generate_post_from_factory(year,month,day)
+        day -= 1
+      end
+      day = 31
+      month = 3
+      31.times do
+        generate_post_from_factory(year,month,day)
+        day -= 1
+      end
+    end
+    
+    it "should aggregate posts by month and year" do
+      post_aggs = Post.count_and_agg_by_month
+      post_aggs.should_not be_nil
+      post_aggs.size.should == 2
+      post_aggs[0]["count"].truncate.should == 30
+      post_aggs[0]["month"].should == "Apr"
+      post_aggs[0]["year"].truncate.should == 2011
+      post_aggs[1]["count"].truncate.should == 31
+      post_aggs[1]["month"].should == "Mar"
+      post_aggs[1]["year"].truncate.should == 2011
+    end
+  end
+
 
 end

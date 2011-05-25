@@ -1,0 +1,5 @@
+<% @posts.each do |post| %>
+  <% title = truncate(post.title) %>
+  <% id = "#" + post.month + post.year.to_s %>
+  $("<%=id%>").after("<li><%=title%></li>")
+<% end %>

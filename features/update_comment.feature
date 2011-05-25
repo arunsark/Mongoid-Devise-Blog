@@ -1,6 +1,4 @@
 
-
-
 Feature: Update/Destroy a Comment
   As an admin
   I should be allowed Update or Destroy any comment in the system
